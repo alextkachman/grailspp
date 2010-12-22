@@ -1,0 +1,13 @@
+<plugin name='groovy-plus-plus' version='#version' grailsVersion='1.3.5 &gt; *'>
+  <author>Alex Tkachman</author>
+  <authorEmail>alex.tkachman@gmail.com</authorEmail>
+  <title>Groovy++ Integration</title>
+  <description>\
+The plugin integrating Groovy++ in to Grails by replacing jars in Grails installation for ones required for Groovy++
+</description>
+  <resources>
+    <resource>BuildConfig</resource>
+  </resources>
+  <dependencies />
+  <behavior />
+</plugin>

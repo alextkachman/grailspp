@@ -1,0 +1,103 @@
+/*
+ * Copyright 2009-2010 MBTE Sweden AB.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+apply plugin:'groovy'
+
+version = '0.4.113'
+
+dependencies {
+    groovy(group: 'org.mbte.groovypp', name: 'groovypp', version: '0.4.113')
+
+    compile(group: 'org.mbte.groovypp', name: 'groovypp-all', version: '0.4.113')
+
+    compile fileTree(dir: '../GrailsLibs', includes: ['*.jar'])
+}
+
+repositories {
+    mavenCentral()
+    mavenRepo urls: "http://groovypp.artifactoryonline.com/groovypp/libs-releases-local"
+}
+
+sourceSets {
+    main {
+        java {
+            srcDir "src/java"
+        }
+        groovy {
+            srcDir "src/groovy"
+        }
+    }
+}
+
+task copyMetaInf(dependsOn: compileGroovy) {
+  ant.copy (todir:"build/classes/main/META-INF") {
+      fileset (dir:"src/META-INF")
+  }
+}
+
+jar.dependsOn << copyMetaInf
+
+task sourcesJar(type: Jar, dependsOn:jar) {
+     baseName = 'grailspp'
+     classifier = 'sources'
+     from sourceSets.main.allSource
+}
+
+jar.doLast {
+  ant.taskdef(name:'jarjar', classname: 'com.tonicsystems.jarjar.JarJarTask', classpath: '../GrailsLibs/jarjar-1.0.jar')
+
+  ant.delete(file:"build/libs/Grailspp-${version}.jar")
+
+  ant.jarjar(jarfile: "build/libs/grailspp-${version}.jar") {
+      zipfileset(dir: 'build/classes/main')
+      rule(pattern:"org.objectweb.**", result:"groovyjarjarasm.@1")
+  }
+}
+
+task makeGrails(dependsOn: sourcesJar) << {
+  ant.delete dir:"tempbin", quiet:"true"
+  ant.mkdir dir:"tempbin"
+
+  ant.copy (todir:"tempbin") {
+      fileset (dir:".") {
+          exclude name:"tempbin/**"
+          exclude name:"build/**"
+          exclude name:"src/**"
+          exclude name:"*.iml"
+          exclude name:"*.gradle"
+      }
+  }
+
+  ant.replaceregexp (match:"#version", replace:"${version}", byline:"true") {
+      fileset dir:'tempbin'
+  }
+
+  ant.zip(destfile:"build/grails-groovy-plus-plus-${version}.zip", comment:"The Groovy++ Grails Plugin binary distribution.") {
+      zipfileset dir:"tempbin", prefix:""
+      zipfileset file:"build/libs/grailspp-${version}.jar", prefix:"lib"
+      zipfileset file:"build/libs/grailspp-${version}-sources.jar", prefix:"lib"
+  }
+
+  ant.delete dir:"tempbin", quiet:"true"
+}
+
+build.dependsOn << makeGrails
+
+task deployGoogle(dependsOn:makeGrails) << {
+  ant.taskdef(name:"gcupload", classname:"net.bluecow.googlecode.ant.GoogleCodeUploadTask", classpath:"../GrailsLibs/ant-googlecode-0.0.2.jar")
+
+  ant.gcupload(username:GOOGLE_USER, password:GOOGLE_PASSWORD, projectname:"groovypptest", filename:"build/grails-groovy-plus-plus-${version}.zip", targetfilename:"grails-groovy-plus-plus-${version}.zip", summary:"Groovy++ Grails Plugin ${version}", labels:"Featured", verbose:"true")
+}
