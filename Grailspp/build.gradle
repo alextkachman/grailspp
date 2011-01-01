@@ -16,12 +16,12 @@
 
 apply plugin:'groovy'
 
-version = '0.4.113'
+version = '0.4.116'
 
 dependencies {
-    groovy(group: 'org.mbte.groovypp', name: 'groovypp', version: '0.4.113')
+    groovy(group: 'org.mbte.groovypp', name: 'groovypp', version: '0.4.116')
 
-    compile(group: 'org.mbte.groovypp', name: 'groovypp-all', version: '0.4.113')
+    compile(group: 'org.mbte.groovypp', name: 'groovypp-all', version: '0.4.116')
 
     compile fileTree(dir: '../GrailsLibs', includes: ['*.jar'])
 }
