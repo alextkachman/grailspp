@@ -44,14 +44,12 @@
       <library name="Grails User Library">
         <CLASSES>
           <root url="file://$MODULE_DIR$/lib" />
-          <root url="jar://$USER_HOME$/.ivy2/cache/org.mbte.groovypp/groovypp-all/jars/groovypp-all-0.4.94.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
         <jarDirectory url="file://$MODULE_DIR$/lib" recursive="false" />
       </library>
     </orderEntry>
-    <orderEntry type="module" module-name="GppGrailsTest-grailsPlugins" />
   </component>
 </module>
 
