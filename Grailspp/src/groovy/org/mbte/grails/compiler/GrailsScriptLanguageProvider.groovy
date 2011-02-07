@@ -40,8 +40,8 @@ import org.codehaus.groovy.control.SourceUnit
         if (!classes.size())
             return null
 
-        if(moduleNode.context.name.endsWith("_gsp"))
-          return GspLanguage
+//        if(moduleNode.context.name.endsWith("_gsp"))
+//          return GspLanguage
 
         for(e in anchors.entrySet()) {
             if(isGrailsScript(moduleNode.context, e.key)) {

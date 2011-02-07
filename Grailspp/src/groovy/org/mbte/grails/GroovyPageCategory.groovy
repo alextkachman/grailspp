@@ -20,7 +20,7 @@ import org.codehaus.groovy.grails.web.pages.GroovyPage
 /**
  * Extension methods for classes of servlet framework
  */
-class GroovyPageCategory {
+@Typed class GroovyPageCategory {
 //    /**
 //     * Allows property-like syntax to access session attributes
 //     *
