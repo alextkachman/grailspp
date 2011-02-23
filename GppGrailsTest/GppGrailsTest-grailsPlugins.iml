@@ -46,7 +46,9 @@
           <root url="file://$USER_HOME$/.grails/1.3.5/projects/GppGrailsTest/plugins/groovy-plus-plus-0.4.155/lib" />
         </CLASSES>
         <JAVADOC />
-        <SOURCES />
+        <SOURCES>
+          <root url="file://$MODULE_DIR$/../../groovypp/StdLib/src" />
+        </SOURCES>
         <jarDirectory url="file://$USER_HOME$/.grails/1.3.5/projects/GppGrailsTest/plugins/groovy-plus-plus-0.4.155/lib" recursive="false" />
         <jarDirectory url="file://$USER_HOME$/.grails/1.3.5/projects/GppGrailsTest/plugins/tomcat-1.3.5/lib" recursive="false" />
       </library>
