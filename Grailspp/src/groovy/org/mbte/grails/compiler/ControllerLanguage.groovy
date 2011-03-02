@@ -28,7 +28,6 @@ import org.codehaus.groovy.ast.ClassNode
     super(GrailsScriptLanguageProvider.CONTROLLERS_ANCHOR)
   }
 
-  @Override
   void apply(ModuleNode moduleNode) {
     super.apply(moduleNode)
 

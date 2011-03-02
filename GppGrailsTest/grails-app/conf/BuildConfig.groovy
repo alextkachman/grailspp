@@ -19,6 +19,8 @@ grails.project.dependency.resolution = {
         // from public Maven repositories
         //mavenLocal()
         mavenCentral()
+      mavenRepo 'file://' + new File(System.getProperty('user.home'), ".m2${File.separatorChar}repository").absolutePath
+
         //mavenRepo "http://snapshots.repository.codehaus.org"
         //mavenRepo "http://repository.codehaus.org"
         //mavenRepo "http://download.java.net/maven/2/"

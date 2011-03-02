@@ -27,7 +27,7 @@ import org.codehaus.groovy.grails.web.metaclass.ChainMethod
 import org.codehaus.groovy.grails.web.servlet.mvc.TokenResponseHandler
 import org.codehaus.groovy.grails.web.mapping.UrlMappingsHolder
 
-@Trait abstract class ControllerMethods implements CommonWebProperties, org.mbte.grails.RenderMethods, org.mbte.grails.BindMethods {
+@Trait abstract class ControllerMethods implements CommonWebProperties, RenderMethods, BindMethods, ConverterMethods {
     String getActionUri() {
         "/$controllerName/$actionName"
     }
